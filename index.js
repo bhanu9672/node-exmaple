@@ -105,6 +105,11 @@ app.post("/add-product", upload.single("file"), (req, resp) => {
 //});
 
 // Show All Products Api
+app.get("/", (res, resp) => {
+    resp.json({message : "Home Page"});
+});
+
+// Show All Products Api
 app.get("/products", async (res, resp) => {
     const products = await Product.find();
     if (products.length > 0) {
