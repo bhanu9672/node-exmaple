@@ -110,7 +110,7 @@ app.get("/", (res, resp) => {
 });
 
 // Show All Products Api
-app.get("/products", async (res, resp) => {
+app.get("/", async (res, resp) => {
     const products = await Product.find();
     if (products.length > 0) {
         resp.send(products);
