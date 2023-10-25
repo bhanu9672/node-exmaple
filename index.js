@@ -20,6 +20,10 @@ const PORT = process.env.PORT;
 
 // Register Or add New User Api
 app.post("/register", async (req, resp) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,Content-Type,Authorization');
+    res.setHeader('Access-Control-Allow-Credentials', true);
     let user = new User(req.body);
     let result = await user.save();
     result = result.toObject();
@@ -29,6 +33,10 @@ app.post("/register", async (req, resp) => {
 
 // LogIN Api
 app.post("/login", async (req, resp) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,Content-Type,Authorization');
+    res.setHeader('Access-Control-Allow-Credentials', true);
     if (req.body.password && req.body.email) {
         let user = await User.findOne(req.body).select("-password");
         if (user) {
@@ -70,6 +78,10 @@ var upload = multer({ storage: storage });
 
 // Add Produt Api
 app.post("/add-product", upload.single("file"), (req, resp) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,Content-Type,Authorization');
+    res.setHeader('Access-Control-Allow-Credentials', true);
     if (req.file == undefined) {
         return resp.send({
             message: "You must select a file.",
@@ -111,11 +123,19 @@ app.post("/add-product", upload.single("file"), (req, resp) => {
 // Show All Products Api
 app.get("/", (res, resp) => {
     //res.setHeader( "access-control", "true" );
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,Content-Type,Authorization');
+    res.setHeader('Access-Control-Allow-Credentials', true);
     resp.json({message : "Home Page"});
 });
 
 // Show All Products Api
 app.get("/products", async (res, resp) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,Content-Type,Authorization');
+    res.setHeader('Access-Control-Allow-Credentials', true);
     const products = await Product.find();
     if (products.length > 0) {
         resp.send(products);
@@ -126,12 +146,20 @@ app.get("/products", async (res, resp) => {
 
 // Delete Product Api
 app.delete("/product/:id", async (req, resp) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,Content-Type,Authorization');
+    res.setHeader('Access-Control-Allow-Credentials', true);
     let result = await Product.deleteOne({ _id: req.params.id });
     resp.send(req.params);
 });
 
 // Get Single Product Api
 app.get("/product/:id", async (res, resp) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,Content-Type,Authorization');
+    res.setHeader('Access-Control-Allow-Credentials', true);
     let result = await Product.findOne({ _id: res.params.id });
     if (result) {
         resp.send(result);
@@ -142,6 +170,10 @@ app.get("/product/:id", async (res, resp) => {
 
 // Update Product Api
 app.put("/product/:id", async (req, resp) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,Content-Type,Authorization');
+    res.setHeader('Access-Control-Allow-Credentials', true);
     let result = await Product.updateOne(
         { id: req.params.id },
         { $set: req.body }
@@ -151,6 +183,10 @@ app.put("/product/:id", async (req, resp) => {
 
 // Api For Search Product
 app.get('/search/:key', async (req, resp) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,Content-Type,Authorization');
+    res.setHeader('Access-Control-Allow-Credentials', true);
     let result = await Product.find({
         "$or": [
             {
