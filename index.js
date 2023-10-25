@@ -3,16 +3,20 @@ const cors = require("cors");
 const multer = require("multer")
 var fs = require('fs');
 var path = require('path');
-const bodyParser = require("body-parser")
+const bodyParser = require("body-parser");
 
 require("./db/config");
 const User = require("./db/User");
 const Product = require("./db/Product");
+const dotenv = require("dotenv");
 const app = express();
+dotenv.config();
 
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
+
+const PORT = process.env.PORT;
 
 // Register Or add New User Api
 app.post("/register", async (req, resp) => {
@@ -106,6 +110,7 @@ app.post("/add-product", upload.single("file"), (req, resp) => {
 
 // Show All Products Api
 app.get("/", (res, resp) => {
+    //res.setHeader( "access-control", "true" );
     resp.json({message : "Home Page"});
 });
 
@@ -162,4 +167,4 @@ app.get('/search/:key', async (req, resp) => {
     resp.send(result);
 });
 
-app.listen(5000);
+app.listen(PORT);
