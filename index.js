@@ -141,7 +141,7 @@ app.post("/add-product", upload.single("file"), (req, resp) => {
 // });
 
 // Show All Products Api
-app.get("/", async (res, resp) => {
+app.get("https://node-exmaple-25-10-2023-git-main-bhanu9672.vercel.app/", async (res, resp) => {
     const products = await Product.find();
     if (products.length > 0) {
         resp.send(products);
